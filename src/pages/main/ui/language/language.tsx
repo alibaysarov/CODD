@@ -20,7 +20,7 @@ const Language = () => {
                         Выберите язык
                         <Text as={"p"} color={"grey"} fontSize={"md"}>Select  language</Text>
                     </ModalHeader>
-                    <ModalBody justifyContent={"center"}>
+                    <ModalBody px={{ base: "0px" }} justifyContent={"center"}>
                         <CountryList />
                     </ModalBody>
 

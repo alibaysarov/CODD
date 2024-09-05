@@ -23,7 +23,7 @@ const CountryList = () => {
         }
     ];
     return (
-        <Flex p={"27px"} direction={"column"} gap={"20px"}>
+        <Flex p={{ base: "0px", sm: "27px" }} direction={"column"} gap={"20px"}>
             {
                 countries.map(country => (
                     <Box
@@ -35,7 +35,7 @@ const CountryList = () => {
                             transitionDuration: "350ms",
                             boxShadow: "0px 4px 9.09px #0A488280"
                         }}>
-                        <Flex gap={31} alignItems={"center"}>
+                        <Flex gap={{ base: "15px", sm: "31px" }} alignItems={"center"}>
                             {country.icon}
                             <Text as={"p"}>{country.text}</Text>
                         </Flex>
