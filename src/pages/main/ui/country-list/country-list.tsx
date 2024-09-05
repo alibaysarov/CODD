@@ -1,6 +1,5 @@
 import { Box, Flex, Img, Text } from '@chakra-ui/react';
 const CountryList = () => {
-    const viewBox = "0 0 56 56"
     const countries = [
         {
             icon: <Img src={'/countries/Russia.png'} width={"56px"} height={"56px"} />,
