@@ -6,6 +6,8 @@ import UK from "/public/icons/UK.svg?react"
 import CODD from "/public/icons/CODD.svg?react"
 import News from "/public/icons/news.svg?react"
 import Chat from "/public/icons/chat.svg?react"
+import BackArrow from "/public/icons/back-icon.svg?react"
+export const BackIcon = BackArrow
 export const ChatIcon = Chat
 export const CODDIcon = CODD
 export const NewsIcon = News

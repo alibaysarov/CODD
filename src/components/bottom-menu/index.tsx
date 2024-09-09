@@ -9,14 +9,12 @@ const BottomMenu = () => {
             w={"100%"}
             position={"fixed"}
             bottom={"0px"}
-            padding={"15px"}
+            padding={"9px"}
             bgColor={"black"}
         >
             <Flex justifyContent={"center"}>
-                <Flex w={"80%"} justifyContent={"space-between"} alignItems={"center"}>
-                    <Icons.NewsIcon />
-                    <Icons.CODDIcon />
-                    <Icons.ChatIcon />
+                <Flex w={"80%"} justifyContent={"center"} alignItems={"center"}>
+                    <Icons.CODDIcon height={"42px"} width={"76px"} />
                 </Flex>
             </Flex>
         </Box>
