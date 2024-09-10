@@ -6,7 +6,7 @@ const ServiceList = () => {
         {
             text: "Электронная очередь",
             image: <Img position={"absolute"} top={"0px"} right={"0px"} src='/el-queue.png' />,
-            link: "/"
+            link: "/el-queue"
         },
         {
             text: "Выдача разрешений",
