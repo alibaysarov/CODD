@@ -7,7 +7,7 @@ import { BackIcon } from '../../icons/icons';
 
 const News = () => {
     return (
-        <AppLayout>
+        <AppLayout hasMenu={false}>
             <Header leftSide={<Link to={"/"}><BackIcon /></Link>} title='Новости' />
             <NewsList />
         </AppLayout>

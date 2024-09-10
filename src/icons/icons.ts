@@ -7,6 +7,14 @@ import CODD from "/public/icons/CODD.svg?react"
 import News from "/public/icons/news.svg?react"
 import Chat from "/public/icons/chat.svg?react"
 import BackArrow from "/public/icons/back-icon.svg?react"
+import DownArrow from "/public/icons/down-icon.svg?react"
+import Info from "/public/icons/info-icon.svg?react"
+import Union from "/public/icons/Union.svg?react"
+import RegistrationPlaces from "/public/icons/registration.svg?react"
+export const RegistrationPlacesIcon = RegistrationPlaces
+export const UnionIcon = Union
+export const DownIcon = DownArrow
+export const InfoIcon = Info
 export const BackIcon = BackArrow
 export const ChatIcon = Chat
 export const CODDIcon = CODD

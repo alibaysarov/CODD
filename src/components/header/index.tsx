@@ -12,14 +12,14 @@ const Header = ({ title, leftSide, rightSide }: Props) => {
                         {leftSide}
                     </GridItem>
                     <GridItem>
-                        <Text as={"h1"} color={"black"} fontFamily={"heading"} fontWeight={900}>{title}</Text>
+                        <Text whiteSpace={"nowrap"} as={"h1"} color={"black"} fontFamily={"heading"} fontWeight={900}>{title}</Text>
                     </GridItem>
                     <GridItem></GridItem>
                 </Grid>
             }
             {
                 leftSide && rightSide &&
-                <Grid alignItems={"center"} templateColumns='repeat(3, 1fr)'>
+                <Grid alignItems={"center"} templateColumns='1fr 3fr .5fr'>
                     <GridItem>
                         {leftSide}
                     </GridItem>

@@ -6,7 +6,7 @@ import Language from './ui/language/language';
 
 const Main = () => {
     return (
-        <AppLayout>
+        <AppLayout hasMenu={false}>
             <Header title='Сервисы' rightSide={<Language />} />
             <ServiceList />
         </AppLayout>

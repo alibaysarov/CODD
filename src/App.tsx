@@ -4,6 +4,8 @@ import './App.css'
 import Main from "./pages/main"
 import News from './pages/news';
 import SinglePage from './pages/news/single-page';
+import QueueList from './pages/electronic-queue/queue-list';
+import QueueMain from './pages/electronic-queue/queue-main';
 
 function App() {
 
@@ -13,6 +15,8 @@ function App() {
       <Route path='/' element={<Main />} />
       <Route path='/news' element={<News />} />
       <Route path='/news/:id' element={<SinglePage />} />
+      <Route path='/el-queue' element={<QueueMain />} />
+      <Route path='/queue-list' element={<QueueList />} />
     </Routes>
   )
 }

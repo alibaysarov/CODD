@@ -35,7 +35,7 @@ const SinglePage = () => {
         fetchPost()
     }, [])
     return (
-        <AppLayout>
+        <AppLayout hasMenu={false}>
             <Header leftSide={<Link to={"/news"}><BackIcon /></Link>} title="" />
             <Box pt={"28px"} px={"11px"}>
                 {

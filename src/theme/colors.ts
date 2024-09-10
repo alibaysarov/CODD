@@ -9,7 +9,9 @@ export const colors = {
         400: '#6fdb74',
         500: '#57A51D',
     },
-    red: "#192312",
+    brand_secondary: {
+        500: "#192312"
+    },
     gray: {
         50: "#E8EDEF",
         70: "#E6EAEC",

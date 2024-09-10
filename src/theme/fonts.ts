@@ -12,6 +12,7 @@ export const fonts = {
         md: "16px",
         xl: "18px",
         "2xl": "20px",
+        "3xl": "25px"
     },
     lineHeights: {
         normal: "normal",
