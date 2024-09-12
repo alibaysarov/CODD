@@ -14,6 +14,21 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/codd\.vercel\.app\/.*$/, // Match your API
+            handler: 'NetworkFirst', // Tries network first, falls back to cache
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 50, // Max number of cached entries
+                maxAgeSeconds: 86400, // One day
+              },
+            },
+          },
+        ]
+      },
       manifest: {
         name: "CODD App PWA",
         short_name: "CODD",

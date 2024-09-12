@@ -1,0 +1,298 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Backend Service API",
+      "version": "v1"
+    },
+    "servers": [
+      {
+        "url": ""
+      }
+    ],
+    "paths": {
+      "/EleQueue": {
+        "get": {
+          "tags": [
+            "EleQueue"
+          ],
+          "summary": "Получение отфильтрованного списка электронных очередей.",
+          "parameters": [
+            {
+              "name": "numberLike",
+              "in": "query",
+              "description": "Поиск по номеру автомобиля.",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "dateRegStart",
+              "in": "query",
+              "description": "Дата регистрации больше.",
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            {
+              "name": "dateRegEnd",
+              "in": "query",
+              "description": "Дата регистрации меньше.",
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Количество записей.",
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "description": "Смещение.",
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoddNews.Common.EleQueue"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoddNews.Common.EleQueue"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoddNews.Common.EleQueue"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/NewsArticle/all": {
+        "get": {
+          "tags": [
+            "NewsArticle"
+          ],
+          "summary": "Получение списка новостных статей.",
+          "parameters": [
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Количество записей.",
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "description": "Смещение.",
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoddNews.Common.NewsArticle"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoddNews.Common.NewsArticle"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoddNews.Common.NewsArticle"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/NewsArticle/get": {
+        "get": {
+          "tags": [
+            "NewsArticle"
+          ],
+          "summary": "Получение новостной статьи по идентификатору.",
+          "parameters": [
+            {
+              "name": "sourceUrl",
+              "in": "query",
+              "description": "Идентификатор новостной статьи.",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CoddNews.Common.NewsArticle"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CoddNews.Common.NewsArticle"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CoddNews.Common.NewsArticle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/NewsArticle/image": {
+        "get": {
+          "tags": [
+            "NewsArticle"
+          ],
+          "summary": "Получение изображения по идентификатору изображения новостной статьи.",
+          "parameters": [
+            {
+              "name": "imageSource",
+              "in": "query",
+              "description": "Идентификатор новостной статьи.",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "CoddNews.Common.EleQueue": {
+          "type": "object",
+          "properties": {
+            "land": {
+              "type": "string",
+              "nullable": true
+            },
+            "carNumber": {
+              "type": "string",
+              "nullable": true
+            },
+            "model": {
+              "type": "string",
+              "nullable": true
+            },
+            "dateReg": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false
+        },
+        "CoddNews.Common.NewsArticle": {
+          "type": "object",
+          "properties": {
+            "sourceUrl": {
+              "type": "string",
+              "nullable": true
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "paragraphs": {
+              "type": "string",
+              "nullable": true
+            },
+            "publishDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "images": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CoddNews.Common.NewsArticleImage"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "CoddNews.Common.NewsArticleImage": {
+          "type": "object",
+          "properties": {
+            "newsArticleUrl": {
+              "type": "string",
+              "nullable": true
+            },
+            "sourceImageUrl": {
+              "type": "string",
+              "nullable": true
+            },
+            "mainImage": {
+              "type": "boolean"
+            },
+            "data": {
+              "type": "string",
+              "format": "byte",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  }

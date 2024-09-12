@@ -14,7 +14,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Main />} />
       <Route path='/news' element={<News />} />
-      <Route path='/news/:id' element={<SinglePage />} />
+      <Route path='ru/news/:url' element={<SinglePage />} />
       <Route path='/el-queue' element={<QueueMain />} />
       <Route path='/queue-list' element={<QueueList />} />
     </Routes>
