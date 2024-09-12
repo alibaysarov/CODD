@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, Params, useParams } from "react-router-dom";
 import { BackIcon } from "../../../icons/icons";
 import { CoddNews_Common_NewsArticle, NewsArticleService } from "../../../api";
-import ReactHtmlParser from 'react-html-parser';
-
+import parse from "html-react-parser"
 
 const SinglePage = () => {
     const [newPost, setNewPost] = useState<CoddNews_Common_NewsArticle>({
@@ -57,7 +56,7 @@ const SinglePage = () => {
                                     <Text lineHeight={1.5} fontSize={"xs"} color={"rgba(13, 33, 39, 0.5)"} fontWeight={400} fontFamily={"body"}>13.12.2023 - 16:16</Text>
                                     <Text color={"black"} mb={"20px"} fontWeight={700} fontSize={"xl"} as={"h1"} textTransform={"uppercase"}>{newPost.title}</Text>
                                     <Box color={"black"} fontSize={"md"} fontWeight={400}>
-                                        {newPost.paragraphs && ReactHtmlParser(newPost.paragraphs)}
+                                        {newPost.paragraphs && parse(newPost.paragraphs)}
                                     </Box>
                                 </Flex>
                             </Flex>

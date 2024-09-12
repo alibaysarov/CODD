@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, Img, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { CoddNews_Common_NewsArticle } from "../../../../api";
-import ReactHtmlParser from 'react-html-parser';
+import parse from "html-react-parser"
 import { useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers/timeFunctions";
 const NewsCard = ({ sourceUrl, title, paragraphs, publishDate, images }: CoddNews_Common_NewsArticle) => {
@@ -56,7 +56,7 @@ const NewsCard = ({ sourceUrl, title, paragraphs, publishDate, images }: CoddNew
                         </Flex>
 
                         <Box color="black" fontSize={" md"} fontWeight={400}>
-                            {paragraphs && ReactHtmlParser(getExcerpt(paragraphs))}
+                            {paragraphs && parse(getExcerpt(paragraphs))}
                         </Box>
                     </Flex>
                     <Divider mt={"20px"} bg={"gray.70"} />
