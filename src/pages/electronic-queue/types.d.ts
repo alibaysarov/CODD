@@ -1,9 +1,7 @@
-export interface QueueItemProps {
-    id: number
+import { CoddNews_Common_EleQueue } from "../../api";
+
+type Props = {
     isOpened: boolean,
-    title: string,
-    time: string,
-    date: string,
-    country: string,
-    model: string
+    id: number | string,
 }
+export type ElectronicQueueItem = CoddNews_Common_EleQueue & Props;

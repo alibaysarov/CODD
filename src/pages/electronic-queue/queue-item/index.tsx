@@ -2,14 +2,25 @@ import { Box, Flex, Grid, IconButton, Text } from "@chakra-ui/react";
 import { DownIcon } from "../../../icons/icons";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion"
-import { QueueItemProps } from "../types";
+import { formatDate } from "../../../helpers/timeFunctions";
+import { ElectronicQueueItem } from "../types";
 
+interface Props {
+    clickHandler: (id: number | string) => void
 
-
-const QueueItem = ({ id, country, date, isOpened, model, time, title }: QueueItemProps) => {
+}
+const QueueItem = ({ carNumber, clickHandler, dateReg, land, model, id, isOpened }: ElectronicQueueItem & Props) => {
     const [opened, setOpened] = useState<boolean>(isOpened);
     const toggleCard = () => {
-        setOpened(prev => !prev)
+        setOpened(prev => {
+            if (prev == true) {
+                return false
+            } else {
+                clickHandler(id)
+                return true;
+            }
+        })
+
     }
     useEffect(() => {
         setOpened(isOpened)
@@ -21,14 +32,14 @@ const QueueItem = ({ id, country, date, isOpened, model, time, title }: QueueIte
 
                 <Flex gap={"15px"} direction={"column"}>
                     <Flex w={"75%"} justifyContent={"space-between"}>
-                        <Text fontWeight={700} fontSize={"md"}>{title}</Text>
-                        <Text color={"#FF0E0E"} fontWeight={700} fontSize={"md"}>{time}</Text>
+                        <Text fontWeight={700} fontSize={"md"}>{carNumber}</Text>
+                        <Text color={"#FF0E0E"} fontWeight={700} fontSize={"md"}>02:25</Text>
                     </Flex>
                     {opened &&
                         <Flex justifyContent={"space-between"}>
-                            <Text fontWeight={400} fontSize={"md"}>{country}</Text>
+                            <Text fontWeight={400} fontSize={"md"}>{land}</Text>
                             <Text fontWeight={400} fontSize={"md"}>{model}</Text>
-                            <Text fontWeight={400} fontSize={"md"}>{date}</Text>
+                            <Text fontWeight={400} fontSize={"md"}>{dateReg ? formatDate(dateReg) : ""}</Text>
                         </Flex>
                     }
 

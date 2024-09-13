@@ -26,7 +26,7 @@ export class EleQueueService {
     ): CancelablePromise<Array<CoddNews_Common_EleQueue>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/EleQueue',
+            url: 'https://rsocodd.fineroad.ru/EleQueue',
             query: {
                 'numberLike': numberLike,
                 'dateRegStart': dateRegStart,

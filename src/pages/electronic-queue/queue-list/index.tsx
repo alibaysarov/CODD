@@ -4,64 +4,47 @@ import Header from '../../../components/header';
 import { BackIcon } from '../../../icons/icons';
 import InfoButton from '../../../components/info-button';
 import QueueStats from './ui/queue-stats';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import SearchInput from '../../../components/searchInput';
 import QueueItem from '../queue-item';
-import React, { useEffect, useState } from 'react';
-import { QueueItemProps } from '../types';
+import React, { useEffect, useState, useTransition } from 'react';
+import { ElectronicQueueItem } from '../types';
 import NotFoundModal from './ui/NotFoundModal';
 import InfoModal from './ui/InfoModal';
-
+import { EleQueueService } from '../../../api';
+import { useDebounce } from '../../../hooks/useDebounce';
 const QueueList = () => {
-    const [queueList, setQueueList] = useState<QueueItemProps[]>([]);
-    const users: QueueItemProps[] = [
-        {
-            id: 1,
-            title: "21MR121-01C218",
-            country: "RUS",
-            date: "12.12.23  09:29",
-            isOpened: false,
-            model: "KAMAZ",
-            time: "02:25",
-        },
-        {
-            id: 2,
-            title: "11TR121-01C231",
-            country: "RUS",
-            date: "12.12.23  09:29",
-            isOpened: false,
-            model: "KAMAZ",
-            time: " 03:12",
-        },
-        {
-            id: 3,
-            title: "67HR121-01C271",
-            country: "RUS",
-            date: "12.12.23  09:29",
-            isOpened: false,
-            model: "KAMAZ",
-            time: "03:21",
-        },
-        {
-            id: 4,
-            title: "61MR121-01C211",
-            country: "RUS",
-            date: "12.12.23  09:29",
-            isOpened: false,
-            model: "KAMAZ",
-            time: "03:37",
-        },
-    ];
+    const [queueList, setQueueList] = useState<ElectronicQueueItem[]>([]);
+    const [isPending, startTransition] = useTransition();
     useEffect(() => {
+        //"", "", "", 30
 
-        setQueueList(users)
+        EleQueueService
+            .getEleQueue("", "", "", 30)
+            .then(res => {
+                const data = res.map((el, idx) => ({
+                    ...el,
+                    id: idx + 1,
+                    isOpened: false
+                }));
+                startTransition(() => {
+                    //setItems(data);
+                    setQueueList(data)
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }, [])
     const [notFound, setNotFound] = useState({
         isOpen: false,
         title: ""
     });
     const [searchValue, setSearchValue] = useState("");
+    const [hasItemsFound, setHasItemsFound] = useState(false);
     const closeNotFound = () => {
+        setHasItemsFound(false)
         setNotFound(prev => {
             return {
                 ...prev,
@@ -69,38 +52,58 @@ const QueueList = () => {
             }
         })
     }
+
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     }
-    const startSearchHandler = () => {
-        if (searchValue.length) {
-            setQueueList(prev => {
-                const result = prev.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
-
-                if (result.length) {
-
-                    return result.map((el, id) => {
-                        if (id == 0) {
-                            return {
-                                ...el,
-                                isOpened: true
-                            }
-                        }
-                        return el
-                    })
-                } else {
-                    setNotFound({
-                        isOpen: true,
-                        title: searchValue
-                    })
-                    return []
+    const clickHandler = (id: number | string) => {
+        setQueueList(prev => prev.map((el, idx) => {
+            if (idx + 1 == id) {
+                return {
+                    ...el,
+                    isOpened: true
                 }
-            })
-        } else {
-            console.log("lengt empty", users)
-            setQueueList(users)
-        }
+            }
+            return {
+                ...el,
+                isOpened: false
+            }
+        }))
     }
+    useEffect(() => {
+        const searchHandler = useDebounce(() => {
+            console.log("start debounce", searchValue);
+            const fetchItems = async () => {
+                try {
+                    const res = await EleQueueService.getEleQueue(searchValue.toUpperCase(), "", "", 30);
+                    const data = res.map((el, idx) => ({
+                        ...el,
+                        id: idx + 1,
+                        isOpened: false
+                    }));
+                    if (!data.length && searchValue.length > 0) {
+                        setHasItemsFound(true);
+
+                    } else {
+                        setQueueList(data)
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+            fetchItems();
+        }, 500)
+        searchHandler();
+    }, [searchValue])
+    useEffect(() => {
+        if (hasItemsFound) {
+            setNotFound({
+                isOpen: true,
+                title: searchValue
+            })
+        }
+
+    }, [hasItemsFound])
     const [infoOpened, setInfoOpened] = useState(false)
     return (
         <AppLayout hasMenu={false}>
@@ -113,13 +116,19 @@ const QueueList = () => {
             <NotFoundModal title={notFound.title} isOpen={notFound.isOpen} onClose={closeNotFound} />
             <Box px={"11px"} overflowY={"auto"}>
                 <QueueStats />
-                <SearchInput clickHandler={startSearchHandler} value={searchValue} changeHandler={changeHandler} />
+                <SearchInput clickHandler={() => console.log("123")} value={searchValue} changeHandler={changeHandler} />
                 <Box my={"10px"}>
                     <Flex direction={"column"} gap={"5px"}>
                         {
-                            queueList.map((item, idx) => (
-                                <QueueItem {...item} isOpened={item.isOpened} id={idx + 1} key={idx} />
-                            ))
+                            isPending
+                                ? <Text>Loading....</Text>
+                                : queueList.map((item, idx, arr) => {
+                                    const opened = searchValue.length && arr.length > 0 && idx == 0 ? true : item.isOpened
+                                    return <QueueItem clickHandler={() => clickHandler(idx + 1)} {...item} isOpened={opened} id={idx + 1} key={idx} />
+                                }
+
+                                )
+
                         }
                     </Flex>
                 </Box>
