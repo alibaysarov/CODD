@@ -7,6 +7,9 @@ import { BackIcon } from "../../../icons/icons";
 import { CoddNews_Common_NewsArticle, NewsArticleService } from "../../../api";
 import parse from "html-react-parser"
 
+import MockImage from "../../../components/mock-image";
+import SkeletonPage from "./skeleton-page";
+
 const SinglePage = () => {
     const [newPost, setNewPost] = useState<CoddNews_Common_NewsArticle>({
         images: [],
@@ -48,8 +51,13 @@ const SinglePage = () => {
                     loaded
                         ? <Box pb={"105px"}>
                             <Flex direction={"column"}>
-                                <Img minH={"220px"} objectFit={"cover"} borderRadius={"5px"} overflow={"hidden"}
-                                    src={getMainPhotoLink()} />
+                                {
+                                    loaded
+                                        ? <Img minH={"220px"} objectFit={"cover"} borderRadius={"5px"} overflow={"hidden"}
+                                            src={getMainPhotoLink()} />
+                                        : <MockImage w={360} h={220} />
+                                }
+
 
 
                                 <Flex px={"25px"} mt={"20px"} direction={"column"}>
@@ -61,7 +69,8 @@ const SinglePage = () => {
                                 </Flex>
                             </Flex>
                         </Box>
-                        : <Text>Loading...</Text>
+                        : <SkeletonPage />
+
                 }
 
             </Box>

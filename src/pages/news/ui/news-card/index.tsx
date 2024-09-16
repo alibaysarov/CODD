@@ -4,6 +4,7 @@ import { CoddNews_Common_NewsArticle } from "../../../../api";
 import parse from "html-react-parser"
 import { useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers/timeFunctions";
+import MockImage from "../../../../components/mock-image";
 const NewsCard = ({ sourceUrl, title, paragraphs, publishDate, images }: CoddNews_Common_NewsArticle) => {
 
     const getMainPhotoLink = (): string | undefined => {
@@ -34,7 +35,10 @@ const NewsCard = ({ sourceUrl, title, paragraphs, publishDate, images }: CoddNew
             <Box overflow={"hidden"} borderRadius={"5px"} bgColor={"white"} _hover={{
                 backgroundColor: "gray.70",
             }}>
-                {hasImage && <Img borderRadius={"5px"} src={getMainPhotoLink()} />}
+
+                {hasImage
+                    ? <Img w={360} h={220} borderRadius={"5px"} src={getMainPhotoLink()} />
+                    : <MockImage w={360} h={220} />}
                 <Box p={"20px"} pt={"23px"} pb={"0px"}>
                     <Flex gap={"10px"} direction={"column"}>
                         <Text
