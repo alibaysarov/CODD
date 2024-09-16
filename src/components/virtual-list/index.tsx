@@ -1,5 +1,4 @@
 import { Flex } from '@chakra-ui/react';
-import React, { FC, ReactNode } from 'react';
 import { FixedSizeList as List } from 'react-window';
 interface Props<T> {
     items: T[];
