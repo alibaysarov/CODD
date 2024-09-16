@@ -7,42 +7,50 @@ import QueueStats from './ui/queue-stats';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import SearchInput from '../../../components/searchInput';
 import QueueItem from '../queue-item';
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ElectronicQueueItem } from '../types';
 import NotFoundModal from './ui/NotFoundModal';
 import InfoModal from './ui/InfoModal';
-import { EleQueueService } from '../../../api';
+import { CoddNews_Common_EleQueue, EleQueueService } from '../../../api';
 import { useDebounce } from '../../../hooks/useDebounce';
+import VirtualList from '../../../components/virtual-list';
 const QueueList = () => {
-    const [queueList, setQueueList] = useState<ElectronicQueueItem[]>([]);
-    const [isPending, startTransition] = useTransition();
-    useEffect(() => {
-        //"", "", "", 30
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const debouncedSearch = useDebounce(searchValue);
+    const [queueList, setQueueList] = useState<CoddNews_Common_EleQueue[]>([]);
 
-        EleQueueService
-            .getEleQueue("", "", "", 30)
-            .then(res => {
-                const data = res.map((el, idx) => ({
-                    ...el,
-                    id: idx + 1,
-                    isOpened: false
-                }));
-                startTransition(() => {
-                    //setItems(data);
-                    setQueueList(data)
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-
-    }, [])
+    const [infoOpened, setInfoOpened] = useState(false);
     const [notFound, setNotFound] = useState({
         isOpen: false,
         title: ""
     });
-    const [searchValue, setSearchValue] = useState("");
     const [hasItemsFound, setHasItemsFound] = useState(false);
+
+
+
+    useEffect(() => {
+        const fetchQueueList = async (str = "") => {
+            try {
+                setIsLoaded(false)
+                //"", "", "", 30
+                const data = await EleQueueService.getEleQueue(str.toUpperCase())
+                console.log("res came")
+                const startTime = performance.now();
+                //setList(data)
+                setQueueList(data);
+                setIsLoaded(true)
+                const endTime = performance.now();
+                console.log(`Execution time: ${endTime - startTime} milliseconds`);
+                if (str.length > 0) setHasItemsFound(!data.length && searchValue.length > 0);
+            } catch (err) {
+                console.log("err ", err);
+            }
+        }
+        fetchQueueList(debouncedSearch)
+    }, [debouncedSearch])
+
+
     const closeNotFound = () => {
         setHasItemsFound(false)
         setNotFound(prev => {
@@ -56,46 +64,20 @@ const QueueList = () => {
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     }
+
     const clickHandler = (id: number | string) => {
         setQueueList(prev => prev.map((el, idx) => {
-            if (idx + 1 == id) {
-                return {
-                    ...el,
-                    isOpened: true
-                }
-            }
             return {
                 ...el,
-                isOpened: false
+                isOpened: idx + 1 == id
             }
         }))
     }
-    useEffect(() => {
-        const searchHandler = useDebounce(() => {
-            console.log("start debounce", searchValue);
-            const fetchItems = async () => {
-                try {
-                    const res = await EleQueueService.getEleQueue(searchValue.toUpperCase(), "", "", 30);
-                    const data = res.map((el, idx) => ({
-                        ...el,
-                        id: idx + 1,
-                        isOpened: false
-                    }));
-                    if (!data.length && searchValue.length > 0) {
-                        setHasItemsFound(true);
 
-                    } else {
-                        setQueueList(data)
-                    }
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-            fetchItems();
-        }, 500)
-        searchHandler();
-    }, [searchValue])
+
+
     useEffect(() => {
+        console.log("has item ", hasItemsFound)
         if (hasItemsFound) {
             setNotFound({
                 isOpen: true,
@@ -104,7 +86,7 @@ const QueueList = () => {
         }
 
     }, [hasItemsFound])
-    const [infoOpened, setInfoOpened] = useState(false)
+
     return (
         <AppLayout hasMenu={false}>
             <Header
@@ -118,19 +100,30 @@ const QueueList = () => {
                 <QueueStats />
                 <SearchInput clickHandler={() => console.log("123")} value={searchValue} changeHandler={changeHandler} />
                 <Box my={"10px"}>
-                    <Flex direction={"column"} gap={"5px"}>
+                    <VirtualList
+                        height={500}
+                        itemSize={30}
+                        items={queueList}
+                    >
+                        {({ index, data }) => {
+                            const item = queueList[index];
+                            console.log({
+                                "idx": index,
+                                data
+                            })
+                            return (
+                                <QueueItem clickHandler={() => console.log(123)} id={index + 1} {...item} isOpened={false} />
+
+                            )
+                        }}
+                    </VirtualList>
+                    {/* <Flex direction={"column"} gap={"5px"}>
                         {
-                            isPending
-                                ? <Text>Loading....</Text>
-                                : queueList.map((item, idx, arr) => {
-                                    const opened = searchValue.length && arr.length > 0 && idx == 0 ? true : item.isOpened
-                                    return <QueueItem clickHandler={() => clickHandler(idx + 1)} {...item} isOpened={opened} id={idx + 1} key={idx} />
-                                }
-
-                                )
-
+                            isLoaded
+                                ? queueList.map((item, idx) => (<QueueItem id={idx + 1} {...item} key={idx} />))
+                                : <Text>Loading....</Text>
                         }
-                    </Flex>
+                    </Flex> */}
                 </Box>
             </Box>
         </AppLayout>

@@ -9,14 +9,14 @@ interface Props {
     clickHandler: (id: number | string) => void
 
 }
-const QueueItem = ({ carNumber, clickHandler, dateReg, land, model, id, isOpened }: ElectronicQueueItem & Props) => {
+const QueueItem = ({ carNumber, dateReg, land, model, id, isOpened }: ElectronicQueueItem & Props) => {
     const [opened, setOpened] = useState<boolean>(isOpened);
     const toggleCard = () => {
         setOpened(prev => {
             if (prev == true) {
                 return false
             } else {
-                clickHandler(id)
+                //clickHandler(id)
                 return true;
             }
         })

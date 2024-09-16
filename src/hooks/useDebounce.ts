@@ -1,14 +1,12 @@
+import { useEffect, useState } from "react"
 
-interface HasDebounceMethod {
-    debounce: (func: (...args: any[]) => void, delay: number) => (...args: any[]) => void;
-}
-
-export function useDebounce(func: (...args: any[]) => void, delay: number): (...args: any[]) => void {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    return function (this: HasDebounceMethod, ...args: any[]) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            func.apply(this, args);
+export const useDebounce = <T>(value: T, delay = 500) => {
+    const [debouncedValue, setDebouncedValue] = useState<T>(value);
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebouncedValue(value)
         }, delay);
-    };
+        return () => clearTimeout(timeout)
+    }, [value, delay]);
+    return debouncedValue
 }

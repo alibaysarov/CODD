@@ -15,6 +15,7 @@ export default defineConfig({
         enabled: true,
       },
       workbox: {
+        cleanupOutdatedCaches: false,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/codd\.vercel\.app\/.*$/, // Match your API
