@@ -4,11 +4,10 @@ import Header from '../../../components/header';
 import { BackIcon } from '../../../icons/icons';
 import InfoButton from '../../../components/info-button';
 import QueueStats from './ui/queue-stats';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import SearchInput from '../../../components/searchInput';
 import QueueItem from '../queue-item';
 import React, { useEffect, useState } from 'react';
-import { ElectronicQueueItem } from '../types';
 import NotFoundModal from './ui/NotFoundModal';
 import InfoModal from './ui/InfoModal';
 import { CoddNews_Common_EleQueue, EleQueueService } from '../../../api';
@@ -16,6 +15,7 @@ import { useDebounce } from '../../../hooks/useDebounce';
 import VirtualList from '../../../components/virtual-list';
 const QueueList = () => {
     const [isLoaded, setIsLoaded] = useState(false);
+    console.log(isLoaded)
     const [searchValue, setSearchValue] = useState("");
     const debouncedSearch = useDebounce(searchValue);
     const [queueList, setQueueList] = useState<CoddNews_Common_EleQueue[]>([]);
@@ -65,14 +65,7 @@ const QueueList = () => {
         setSearchValue(e.target.value);
     }
 
-    const clickHandler = (id: number | string) => {
-        setQueueList(prev => prev.map((el, idx) => {
-            return {
-                ...el,
-                isOpened: idx + 1 == id
-            }
-        }))
-    }
+
 
 
 
@@ -105,15 +98,11 @@ const QueueList = () => {
                         itemSize={30}
                         items={queueList}
                     >
-                        {({ index, data }) => {
+                        {({ index }) => {
                             const item = queueList[index];
-                            console.log({
-                                "idx": index,
-                                data
-                            })
+
                             return (
                                 <QueueItem clickHandler={() => console.log(123)} id={index + 1} {...item} isOpened={false} />
-
                             )
                         }}
                     </VirtualList>
