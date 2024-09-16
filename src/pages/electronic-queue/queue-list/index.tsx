@@ -7,7 +7,7 @@ import QueueStats from './ui/queue-stats';
 import { Box } from '@chakra-ui/react';
 import SearchInput from '../../../components/searchInput';
 import QueueItem from '../queue-item';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import NotFoundModal from './ui/NotFoundModal';
 import InfoModal from './ui/InfoModal';
 import { CoddNews_Common_EleQueue, EleQueueService } from '../../../api';
@@ -26,7 +26,7 @@ const QueueList = () => {
         title: ""
     });
     const [hasItemsFound, setHasItemsFound] = useState(false);
-
+    const listRef = useRef(null)
 
 
     useEffect(() => {
@@ -94,15 +94,16 @@ const QueueList = () => {
                 <SearchInput clickHandler={() => console.log("123")} value={searchValue} changeHandler={changeHandler} />
                 <Box my={"10px"}>
                     <VirtualList
-                        height={500}
-                        itemSize={30}
+                        height={600}
+                        itemSize={51}
                         items={queueList}
+                        listRef={listRef}
                     >
-                        {({ index }) => {
+                        {({ index, style }) => {
                             const item = queueList[index];
 
                             return (
-                                <QueueItem clickHandler={() => console.log(123)} id={index + 1} {...item} isOpened={false} />
+                                <QueueItem style={style} clickHandler={() => console.log(123)} id={index + 1} {...item} isOpened={false} />
                             )
                         }}
                     </VirtualList>

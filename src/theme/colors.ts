@@ -3,7 +3,7 @@ export const colors = {
     white: "#fff",
     brand_accent: {
         50: '#9cae9c',
-        100: '#8ac08c',
+        100: '#DDEDD2',
         200: '#81c984',
         300: '#78d27c',
         400: '#6fdb74',

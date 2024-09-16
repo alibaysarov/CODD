@@ -7,9 +7,9 @@ import { ElectronicQueueItem } from "../types";
 
 interface Props {
     clickHandler: (id: number | string) => void
-
+    style: React.CSSProperties
 }
-const QueueItem = ({ carNumber, dateReg, land, model, id, isOpened }: ElectronicQueueItem & Props) => {
+const QueueItem = ({ carNumber, dateReg, style, land, model, id, isOpened }: ElectronicQueueItem & Props) => {
     const [opened, setOpened] = useState<boolean>(isOpened);
     const toggleCard = () => {
         setOpened(prev => {
@@ -26,7 +26,7 @@ const QueueItem = ({ carNumber, dateReg, land, model, id, isOpened }: Electronic
         setOpened(isOpened)
     }, [isOpened])
     return (
-        <Box onClick={toggleCard} bg={"rgb(243,249,239)"} borderRadius={"5px"} p={"15px"} pr={"5px"}>
+        <Box style={style} mb={"5px"} onClick={toggleCard} bg={+id % 2 == 0 ? "brand_accent.100" : "rgb(243,249,239)"} borderRadius={"5px"} p={"15px"} pr={"5px"}>
             <Grid templateColumns={"25px 3fr .5fr"}>
                 <Text lineHeight={"21px"} fontSize={"12px"} color={"brand_accent.500"}>{id}</Text>
 
