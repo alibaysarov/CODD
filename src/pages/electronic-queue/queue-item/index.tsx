@@ -10,7 +10,7 @@ interface Props {
     style: React.CSSProperties
 }
 const QueueItem = ({ carNumber, dateReg, clickHandler, style, land, model, id, isOpened }: ElectronicQueueItem & Props) => {
-
+    console.log()
     const toggleCard = () => {
         clickHandler(+id);
     }
