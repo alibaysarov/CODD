@@ -6,7 +6,8 @@ const ServiceItem = ({ image, text }: Props) => {
         <Box
             overflow={"hidden"}
             w={"100%"}
-            minH={"123px"}
+            minH={"150px"}
+            maxH={"150px"}
             borderRadius={"5px"}
             bgColor={"gray.50"}
             p={"14px"}

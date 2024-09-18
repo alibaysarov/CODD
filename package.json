@@ -17,6 +17,7 @@
     "@fontsource/ibm-plex-sans": "^5.0.21",
     "@fontsource/inter": "^5.0.20",
     "@fontsource/raleway": "^5.0.20",
+    "@tanstack/start": "^1.57.18",
     "@types/react-window": "^1.8.8",
     "@types/workbox-window": "^4.3.4",
     "framer-motion": "^11.5.1",
