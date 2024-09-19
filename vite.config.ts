@@ -4,7 +4,6 @@ import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA } from 'vite-plugin-pwa';
 // https://vitejs.dev/config/
-const WRONG_CODE = `import { bpfrpt_proptype_WindowScroller } from "../WindowScroller.js";`;
 
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
