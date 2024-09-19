@@ -7,5 +7,6 @@ export type CoddNews_Common_EleQueue = {
     carNumber?: string | null;
     model?: string | null;
     dateReg?: string;
+    timeToDel?: string
 };
 

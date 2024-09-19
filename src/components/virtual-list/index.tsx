@@ -1,36 +1,23 @@
-import { Flex } from '@chakra-ui/react';
-import { FC, ReactNode } from 'react';
-//import AutoSizer from 'react-virtualized-auto-sizer';
-import { VariableSizeList as List } from 'react-window';
+import { Accordion } from '@chakra-ui/react';
+import { FC, } from 'react';
+import QueueItem from '../../pages/electronic-queue/queue-item';
+
 interface Props<T> {
     items: T[];
-    height: number;
-    itemSize: (id: number) => number;
-    listRef: React.LegacyRef<List<any>>
-    children: (args: { style: React.CSSProperties, index: number; data: T }) => ReactNode;
+    // height: number;
+    // itemSize: (id: number) => number;
+    // listRef: React.LegacyRef<List<any>>
+    // children: (args: { style: React.CSSProperties, index: number; data: T }) => ReactNode;
 }
-const QueueVirtualList: FC<Props<any>> = ({ items, itemSize, height, listRef, children }) => {
-    const listStyle = {
-        display: "flex",
-        flexdDirection: "column",
-        gap: "5px"
-    }
+//{ items, itemSize, height, listRef, children }
+const QueueVirtualList: FC<Props<any>> = ({ items }) => {
+
 
     return (
-        <Flex direction={"column"} gap={"5px"}>
 
-            <List
-                style={listStyle}
-                height={height}
-                itemCount={items.length}
-                itemSize={itemSize}
-                width={"100%"}
-                ref={listRef}
-            >
-                {({ index, style }) => children({ index, style, data: items[index] })}
-            </List>
-
-        </Flex>
+        <Accordion defaultIndex={0} allowToggle={true}>
+            {items.map((item, idx) => <QueueItem key={idx} {...item} />)}
+        </Accordion>
     );
 };
 

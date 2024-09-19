@@ -4,10 +4,49 @@ import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA } from 'vite-plugin-pwa';
 // https://vitejs.dev/config/
+const WRONG_CODE = `import { bpfrpt_proptype_WindowScroller } from "../WindowScroller.js";`;
+
+import { readFile, writeFile } from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import type { PluginOption } from 'vite';
+// ...
+
+function reactVirtualized(): PluginOption {
+  const WRONG_CODE = `import { bpfrpt_proptype_WindowScroller } from "../WindowScroller.js";`;
+
+  return {
+    name: 'my:react-virtualized',
+    async configResolved() {
+      const reactVirtualizedPath = path.dirname(
+        fileURLToPath(import.meta.resolve('react-virtualized'))
+      );
+
+      const brokenFilePath = path.join(
+        reactVirtualizedPath,
+        '..', // back to dist
+        'es',
+        'WindowScroller',
+        'utils',
+        'onScroll.js'
+      );
+      const brokenCode = await readFile(brokenFilePath, 'utf-8');
+
+      const fixedCode = brokenCode.replace(WRONG_CODE, '');
+      await writeFile(brokenFilePath, fixedCode);
+    },
+  };
+}
+import { config } from 'dotenv';
+config()
 export default defineConfig({
+  define: {
+    'process.env': process.env
+  },
   plugins: [
     react(),
     tsconfigPaths(),
+    reactVirtualized(),
     VitePWA({
       registerType: 'autoUpdate',
       outDir: "dist",
