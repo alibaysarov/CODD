@@ -6,7 +6,7 @@ import InfoButton from '../../../components/info-button';
 import QueueStats from './ui/queue-stats';
 import { Box, Skeleton, Stack } from '@chakra-ui/react';
 import SearchInput from '../../../components/searchInput';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import NotFoundModal from './ui/NotFoundModal';
 import InfoModal from './ui/InfoModal';
 import { EleQueueService } from '../../../api';
@@ -35,7 +35,8 @@ const QueueList = () => {
         isOpen: false,
         title: ""
     });
-
+    const [page, setPage] = useState(0);
+    const observerRef = useRef(null);
     const fetchQueueList = async () => (await EleQueueService.getEleQueue()).length
     const { data: totalItems, isLoading: isNumberLoading } = useQuery({
         queryFn: fetchQueueList,
@@ -64,13 +65,30 @@ const QueueList = () => {
 
     }
     useEffect(() => {
-        if (startSearch.length && queueItems?.length == 0) {
+        if (startSearch.length && queueItems?.length == 0 && isSuccess && !isLoading) {
             setNotFound({
                 isOpen: true,
                 title: startSearch
             })
         }
-    }, [queueItems, startSearch])
+    }, [queueItems, startSearch]);
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setPage((prevPage) => prevPage + 1);
+                }
+            },
+            { rootMargin: '0px' }
+        );
+
+        if (observerRef.current) observer.observe(observerRef.current);
+
+        return () => observer && observer.disconnect();
+    }, []);
+    useEffect(() => {
+        console.log("new page ", page);
+    }, [page])
     return (
         <AppLayout hasMenu={false}>
             <Header
@@ -90,6 +108,9 @@ const QueueList = () => {
                             : <QueueVirtualList items={isSuccess ? queueItems : []} />
                     }
                 </Box>
+
+
+                {isSuccess && <div className='inf-scroll' ref={observerRef} />}
             </Box>
         </AppLayout>
     );
