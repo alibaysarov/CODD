@@ -4,7 +4,8 @@ import { EleQueueService } from "../api"
 export const useElQueueQuery = (str: string) => {
     return useQuery({
         queryFn: async () => {
-            const data = await EleQueueService.getEleQueue(str.toUpperCase(), "", "", 60)
+            //, "", "", 60
+            const data = await EleQueueService.getEleQueue(str.toUpperCase())
             return data.map((el, idx) => ({
                 ...el,
                 id: idx + 1

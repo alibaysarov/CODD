@@ -64,9 +64,7 @@ const QueueList = () => {
 
     }
     useEffect(() => {
-        console.log(startSearch.length, queueItems)
         if (startSearch.length && queueItems?.length == 0) {
-            console.log("changed and open")
             setNotFound({
                 isOpen: true,
                 title: startSearch

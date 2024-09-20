@@ -15,7 +15,7 @@ const QueueVirtualList: FC<Props<any>> = ({ items }) => {
 
     return (
 
-        <Accordion defaultIndex={0} allowToggle={true}>
+        <Accordion allowToggle={true}>
             {items.map((item, idx) => <QueueItem key={idx} {...item} />)}
         </Accordion>
     );
