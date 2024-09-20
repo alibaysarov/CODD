@@ -6,6 +6,7 @@ import News from './pages/news';
 import SinglePage from './pages/news/single-page';
 import QueueList from './pages/electronic-queue/queue-list';
 import QueueMain from './pages/electronic-queue/queue-main';
+import RegistrationPointsPage from './pages/registration-points';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Route path='ru/news/:url' element={<SinglePage />} />
       <Route path='/el-queue' element={<QueueMain />} />
       <Route path='/queue-list' element={<QueueList />} />
+      <Route path='/registration-points' element={<RegistrationPointsPage />} />
     </Routes>
   )
 }

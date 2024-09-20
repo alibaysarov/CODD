@@ -12,6 +12,8 @@ import Info from "/public/icons/info-icon.svg?react"
 import Union from "/public/icons/Union.svg?react"
 import RegistrationPlaces from "/public/icons/registration.svg?react"
 import ImageIcon from "/public/icons/imageIcon.svg?react"
+import Geo from "/public/icons/Geo-icon.svg?react"
+export const GeoIcon = Geo;
 export const MockImageIcon = ImageIcon;
 export const RegistrationPlacesIcon = RegistrationPlaces
 export const UnionIcon = Union

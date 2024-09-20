@@ -17,7 +17,9 @@ const QueueMain = () => {
                     <Link style={{ display: "block" }} to={"/queue-list"}>
                         <Button w={"100%"} leftIcon={<UnionIcon />} color={"white"} py={"15px"} bgColor={"brand_accent.500"}>Смотреть очередь</Button>
                     </Link>
-                    <Button leftIcon={<RegistrationPlacesIcon />} color={"white"} py={"15px"} bgColor={"brand_accent.500"}>Пункты регистрации</Button>
+                    <Link style={{ display: "block" }} to={"/registration-points"}>
+                        <Button w={"100%"} leftIcon={<RegistrationPlacesIcon />} color={"white"} py={"15px"} bgColor={"brand_accent.500"}>Пункты регистрации</Button>
+                    </Link>
                 </Flex>
                 <Box mt={"20px"} px={"10px"}>
                     <Text fontWeight={700} fontSize={"md"}>
