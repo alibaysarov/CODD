@@ -24,6 +24,7 @@ const Language = () => {
             i18n.off("languageChanged", handleLangChange);
         }
     }, [])
+    const { t } = useTranslation()
     return (
         <>
             <IconButton
@@ -38,7 +39,7 @@ const Language = () => {
                 <ModalOverlay />
                 <ModalContent px={"35px"} py={"40px"} maxW={"80%"}>
                     <ModalHeader pt={0} textAlign={"center"}>
-                        Выберите язык
+                        {t("chooseLang")}
                         <Text as={"p"} color={"grey"} fontSize={"md"}>Select  language</Text>
                     </ModalHeader>
                     <ModalBody px={{ base: "0px" }} justifyContent={"center"}>

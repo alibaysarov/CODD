@@ -9,6 +9,7 @@ export const am = {
             myStreet: "Իմ փողոցը",
             organization: "Կազմակերպության մասին",
         },
+        chooseLang: "ընտրեք լեզու",
         elQueue: {
             queueObserver: "Հերթի դիտում",
             observeQueue: "Դիտել հերթը",

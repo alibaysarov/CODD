@@ -9,6 +9,7 @@ export const ge = {
             myStreet: "ჩემი ქუჩა",
             organization: "ორგანიზაციის შესახებ",
         },
+        chooseLang: "აირჩიეთ ენა",
         elQueue: {
             queueObserver: "რიგის ნახვა",
             observeQueue: "რიგის ნახვა",

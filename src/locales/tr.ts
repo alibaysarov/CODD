@@ -9,6 +9,7 @@ export const tr = {
             myStreet: "Benim Sokağım",
             organization: "Kurum Hakkında",
         },
+        chooseLang: "Dil seçin",
         elQueue: {
             queueObserver: "Sıra İzleyici",
             observeQueue: "Sırayı Görüntüle",

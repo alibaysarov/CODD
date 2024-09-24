@@ -9,6 +9,7 @@ export const ru = {
             myStreet: "Моя улица",
             organization: "Об организации",
         },
+        chooseLang: "Выберите язык",
         elQueue: {
             queueObserver: "Просмотр очереди",
             observeQueue: "Смотреть очередь",

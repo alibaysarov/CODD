@@ -3,6 +3,7 @@ export const en = {
         header: {
             services: "Services"
         },
+        chooseLang: "Choose a language",
         main: {
             electronicQueue: "Electronic Queue",
             news: "News",
