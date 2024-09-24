@@ -14,6 +14,7 @@ import { EleQueueService } from '../../../api';
 import QueueVirtualList from '../../../components/virtual-list';
 import { useQuery } from '@tanstack/react-query';
 import { useElQueueQuery } from '../../../hooks/useElQueueQuery';
+import { useTranslation } from 'react-i18next';
 
 const SkeletonQueueList = () => {
     return (
@@ -89,11 +90,12 @@ const QueueList = () => {
     useEffect(() => {
         console.log("new page ", page);
     }, [page])
+    const { t } = useTranslation()
     return (
         <AppLayout hasMenu={false}>
             <Header
                 leftSide={<Link to={"/el-queue"}><BackIcon /></Link>}
-                title='Просмотр очереди'
+                title={t("elQueue.queueObserver")}
                 rightSide={<InfoButton clickHandler={() => setInfoOpened(true)} />}
             />
             <InfoModal isOpen={infoOpened} onClose={() => setInfoOpened(false)} />

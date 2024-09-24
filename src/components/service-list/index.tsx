@@ -1,15 +1,17 @@
 import { Flex, Img } from '@chakra-ui/react';
 import ServiceItem from './service-item';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 const ServiceList = () => {
+    const { t } = useTranslation()
     const menu = [
         {
-            text: "Электронная очередь",
+            text: t("main.electronicQueue"),
             image: <Img position={"absolute"} top={"13px"} right={"0px"} src='/el-queue.png' />,
             link: "/el-queue"
         },
         {
-            text: "Новости",
+            text: t("main.news"),
             image: <Img position={"absolute"} top={"0px"} right={"0px"} src={'/stats.png'} />,
             link: "/news"
         },
@@ -19,12 +21,12 @@ const ServiceList = () => {
         //     link: "/"
         // },
         {
-            text: "Моя улица",
+            text: t("main.myStreet"),
             image: < Img position={"absolute"} top={"0px"} right={"18.6px"} src={'/camera.png'} />,
             link: "/"
         },
         {
-            text: "Об организации",
+            text: t("main.organization"),
             image: <Img position={"absolute"} top={"0px"} right={"0px"} src={'/organization.png'} />,
             link: "/"
         },

@@ -1,9 +1,11 @@
 import { Divider, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 interface Props {
     onClose: () => void,
     isOpen: boolean
 }
 const InfoModal = ({ isOpen, onClose }: Props) => {
+    const { t } = useTranslation();
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -13,19 +15,18 @@ const InfoModal = ({ isOpen, onClose }: Props) => {
                 <ModalBody>
                     <Flex direction={"column"} gap={"15px"}>
                         <Flex alignItems={"center"} direction={"row"} justifyContent={"space-between"}>
-                            <Text fontSize={"md"} fontWeight={400}>Если ваш номер в</Text>
-                            <Text fontSize={"md"} color={"brand_accent.500"} fontWeight={700}>Зеленой зоне</Text>
+                            <Text fontSize={"md"} fontWeight={400}>{t("infoModal.yourNumberIf")}</Text>
+                            <Text fontSize={"md"} color={"brand_accent.500"} fontWeight={700}>{t("infoModal.greenZone")}</Text>
                         </Flex>
                         <Divider bg={"gray.70"} />
                         <Flex alignItems={"center"} direction={"row"} justifyContent={"space-between"}>
-                            <Text fontSize={"md"} fontWeight={400}>{"Следуйте на\n\n пропускной пункт"}</Text>
-                            <Text whiteSpace={"nowrap"} fontSize={"md"} fontWeight={700}>“Верхний Ларс”</Text>
+                            <Text fontSize={"md"} fontWeight={400}>{t("infoModal.followCheckpoint")}</Text>
+                            <Text whiteSpace={"nowrap"} fontSize={"md"} fontWeight={700}>{t("infoModal.upperLars")}</Text>
                         </Flex>
                         <Divider bg={"gray.70"} />
                         <Flex alignItems={"center"} direction={"row"} justifyContent={"space-between"}>
-                            <Text fontSize={"md"} fontWeight={400}>Окончание проезда
-                                до МАПП «Верхний Ларс»</Text>
-                            <Text whiteSpace={"nowrap"} fontSize={"md"} color={"brand_secondary.500"} fontWeight={700}>8 часов</Text>
+                            <Text fontSize={"md"} fontWeight={400}>{t("infoModal.endOfTheDrive")}</Text>
+                            <Text whiteSpace={"nowrap"} fontSize={"md"} color={"brand_secondary.500"} fontWeight={700}>{t("infoModal.time")}</Text>
                         </Flex>
                     </Flex>
                 </ModalBody>

@@ -1,32 +1,44 @@
 import { Box, Flex, Img, Text } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 const CountryList = () => {
+    const { i18n } = useTranslation();
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+        localStorage.setItem("userLanguage", lang)
+    }
     const countries = [
         {
             icon: <Img src={'/countries/Russia.png'} width={"56px"} height={"56px"} />,
             text: "Россия",
+            code: "ru"
         },
         {
             icon: <Img src={'/countries/Turkey.png'} width={"56px"} height={"56px"} />,
-            text: "Türk"
+            text: "Türk",
+            code: "tr"
         },
         {
             icon: <Img src={'/countries/Georgia.png'} width={"56px"} height={"56px"} />,
-            text: "ქართული"
+            text: "ქართული",
+            code: "ge"
         },
         {
             icon: <Img src={'/countries/Armenia.png'} width={"56px"} height={"56px"} />,
-            text: "հայկ"
+            text: "հայկ",
+            code: "am",
         },
         {
             icon: <Img src={'/countries/England.png'} width={"56px"} height={"56px"} />,
-            text: "England"
-        }
+            text: "England",
+            code: "en",
+        },
     ];
     return (
         <Flex p={{ base: "0px", sm: "27px" }} direction={"column"} gap={"20px"}>
             {
                 countries.map(country => (
                     <Box
+                        onClick={() => changeLanguage(country.code)}
                         borderRadius={"5px"}
                         padding={"3px"}
                         transitionTimingFunction={"ease"}
