@@ -19,6 +19,7 @@ const Language = () => {
         const handleLangChange = (lng: string) => {
             setLanguage(lng);
         }
+        setLanguage(localStorage.getItem("userLanguage") || "ru")
         i18n.on("languageChanged", handleLangChange)
         return () => {
             i18n.off("languageChanged", handleLangChange);
