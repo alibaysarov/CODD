@@ -70,7 +70,7 @@ export default defineConfig({
       },
       manifest: {
         name: "CODD App PWA",
-        short_name: "CODD RSO",
+        short_name: "ЦОДД РСО",
         description: "Test page",
         theme_color: "#ffffff",
         background_color: "#ffffff",
